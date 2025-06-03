@@ -9,9 +9,7 @@ import java.time.LocalDate;
         private String endereco;        // Corresponde à coluna 'Endereco' (VARCHAR)
         private LocalDate dataCadastro; // Corresponde à coluna 'Data_Cadastro' (DATE)
 
-        // --- CONSTRUTORES ---
-
-        /**
+        /* Construtores
          * Construtor Membro
          * Necessário para criar um objeto Membro
          * e depois preencher seus atributos usando os métodos setters como aprendemos na aula.
@@ -74,4 +72,7 @@ import java.time.LocalDate;
         public void setDataCadastro(LocalDate dataCadastro) {
             this.dataCadastro = dataCadastro;
     }
+        public String toString() {
+            return "Membro [ID=" + id + ", Nome=" + nome + ", CPF=" + cpf + "]";
+        }
 }
