@@ -86,7 +86,7 @@ public class MembroController {
         return membros; // Retorna a lista de membros (pode estar vazia)
     }
 
-     //Busca um membro específico no banco de dados pelo seu ID.
+    //Busca um membro específico no banco de dados pelo seu ID.
     public Membro buscarMembroPorId(int id) {
         String sql = "SELECT * FROM Membros WHERE ID = ?";
         Membro membroEncontrado = null;
@@ -127,11 +127,63 @@ public class MembroController {
         return membroEncontrado;
     }
 
+
+    //Atualiza os dados de um membro existente no banco de dados.
+    public boolean atualizarMembro(Membro membro) {
+
+        // Comando SQL para atualizar um registro na tabela Membros.
+        String sql = "UPDATE Membros SET Nome = ?, CPF = ?, Telefone = ?, Endereco = ?, Data_Cadastro = ? WHERE ID = ?";
+
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Define os valores para os placeholders '?' na string SQL.
+            // A ordem é crucial e deve corresponder à ordem dos '?' no comando SQL.
+            stmt.setString(1, membro.getNome());        // Define o novo Nome
+            stmt.setString(2, membro.getCpf());         // Define o novo CPF
+            stmt.setString(3, membro.getTelefone());    // Define o novo Telefone
+            stmt.setString(4, membro.getEndereco());    // Define o novo Endereço
+
+            // Converte java.time.LocalDate para java.sql.Date para o PreparedStatement.
+            if (membro.getDataCadastro() != null) {
+                stmt.setDate(5, Date.valueOf(membro.getDataCadastro())); // Define a nova Data_Cadastro
+            } else {
+                stmt.setDate(5, Date.valueOf(java.time.LocalDate.now())); // Usar a data atual se nulo
+            }
+
+            // Define o ID do membro para a cláusula WHERE. Este é o último '?' na string SQL.
+            stmt.setInt(6, membro.getId());
+
+            // Executa o comando SQL de atualização.
+            // executeUpdate() é usado para comandos INSERT, UPDATE, DELETE.
+            // Retorna o número de linhas que foram afetadas pela execução do comando.
+            // Para um UPDATE bem-sucedido em um registro específico (baseado no ID), esperamos que seja 1.
+            int linhasAfetadas = stmt.executeUpdate();
+
+            // Verifica se alguma linha foi realmente atualizada.
+            if (linhasAfetadas > 0) {
+                // Se linhasAfetadas for maior que 0 (normalmente 1),
+                // o membro foi encontrado e atualizado com sucesso.
+                System.out.println("MembroController: Membro com ID " + membro.getId() + " atualizado com sucesso.");
+                return true; // Retorna true indicando sucesso.
+            } else {
+                // Se nenhuma linha foi afetada, pode ser que o membro com o ID fornecido não exista no banco.
+                System.out.println("MembroController: Nenhuma alteração realizada. Membro com ID " + membro.getId() + " pode não ter sido encontrado.");
+                return false; // Retorna false, pois nada foi atualizado.
+            }
+
+        } catch (SQLException e) {
+            // Captura e trata qualquer erro de SQL que possa ocorrer durante a atualização.
+            // Imprime uma mensagem de erro detalhada e o stack trace para depuração.
+            System.err.println("MembroController - ERRO ao atualizar membro com ID " + (membro != null ? membro.getId() : "N/A") + ": " + e.getMessage());
+            e.printStackTrace();
+            return false; // Retorna false em caso de erro.
+        }
+    }
+}
+
 // --- OUTROS MÉTODOS CRUD VIRÃO AQUI ---
 // Exemplos:
-// public Membro buscarMembroPorCPF(String cpf) { ... }
-// public boolean atualizarMembro(Membro membro) { ... }
 // public boolean excluirMembro(int id) { ... }
 
-// } // Chave final da classe MembroController
-}
