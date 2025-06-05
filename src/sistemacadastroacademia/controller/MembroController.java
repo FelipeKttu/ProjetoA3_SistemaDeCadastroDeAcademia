@@ -181,9 +181,35 @@ public class MembroController {
             return false; // Retorna false em caso de erro.
         }
     }
+
+
+     // Exclui um membro do banco de dados com base no seu ID.
+    public boolean excluirMembro(int id) {
+
+        // Define o comando SQL para deletar um registro da tabela Membros.
+        // A cláusula WHERE ID = ? especifica qual membro será excluído
+        String sql = "DELETE FROM Membros WHERE ID = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+
+            // Executa o comando SQL de exclusão.
+            int linhasAfetadas = stmt.executeUpdate();
+
+            // Verifica se alguma linha foi realmente excluída.
+            if (linhasAfetadas > 0) {
+                System.out.println("MembroController: Membro com ID " + id + " excluído com sucesso.");
+                return true;
+            } else {
+                System.out.println("MembroController: Nenhuma linha afetada. Membro com ID " + id + " não encontrado para exclusão.");
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("MembroController - ERRO ao excluir membro com ID " + id + ": " + e.getMessage());
+            e.printStackTrace(); // Imprime o erro
+            return false;
+        }
+    }
 }
-
-// --- OUTROS MÉTODOS CRUD VIRÃO AQUI ---
-// Exemplos:
-// public boolean excluirMembro(int id) { ... }
-
