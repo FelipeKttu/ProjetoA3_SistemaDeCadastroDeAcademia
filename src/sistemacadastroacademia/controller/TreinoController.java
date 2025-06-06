@@ -67,6 +67,8 @@ public class TreinoController {
     public List<Treino> listarTreinosPorMembro(int idMembro) {
         // cria uma lista vazia para armazenar os treinos encontrados.
         List<Treino> treinos = new ArrayList<>();
+        // comando SQL para selecionar todos os  ONDE a coluna ID_Membro
+        // corresponde ao ID que forneceremos.
         String sql = "SELECT * FROM Treinos WHERE ID_Membro = ?";
         Connection conn = null;
 
