@@ -126,7 +126,6 @@ public class PagamentoController {
             System.err.println("PagamentoController - ERRO ao listar pagamentos por membro (" + idMembro + "): " + e.getMessage());
             e.printStackTrace();
         }
-        //
         return pagamentos;
     }
     }

@@ -35,7 +35,7 @@ public class MembroController {
                 int affectedRows = stmt.executeUpdate(); // Executa a inserção
 
                 if (affectedRows > 0) {
-                    // Opcional: recuperar e definir o ID gerado
+                    // recuperar e definir o ID gerado
                     try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                         if (generatedKeys.next()) {
                             membro.setId(generatedKeys.getInt(1)); // Supondo que o ID é a primeira coluna gerada

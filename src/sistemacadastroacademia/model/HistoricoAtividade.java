@@ -1,5 +1,5 @@
+package sistemacadastroacademia.model;
 import java.time.LocalDateTime;
-
 public class HistoricoAtividade {
     private int id;                             // ID (INT, Chave Primária, Auto Incremento)
     private int idMembro;                       // ID_Membro (INT, NOT NULL, FK para Membros.ID)
