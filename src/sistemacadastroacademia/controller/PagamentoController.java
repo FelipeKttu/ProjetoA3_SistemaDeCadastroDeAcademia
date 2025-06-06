@@ -8,9 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date; // Para converter LocalDate
+import java.util.ArrayList;
+import java.util.List;
 
 public class PagamentoController {
-     //Registra um novo pagamento no banco de dados
+    //Registra um novo pagamento no banco de dados
     public boolean registrarPagamento(Pagamento pagamento) {
         String sql = "INSERT INTO Pagamentos (ID_Membro, ID_Funcionario_Registro, Valor, Data_Pagamento, Status, Metodo_Pagamento, Data_Vencimento) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Connection conn = null;
@@ -65,4 +67,66 @@ public class PagamentoController {
         }
     }
 
-}
+     //Lista todos os pagamentos de um membro específico, buscando pelo ID do membro.
+    public List<Pagamento> listarPagamentosPorMembro ( int idMembro){
+        // Cria uma lista vazia para armazenar os pagamentos encontrados.
+        List<Pagamento> pagamentos = new ArrayList<>();
+        // Comando SQL para selecionar todos os pagamentos ONDE a coluna ID_Membro
+        // corresponde ao ID que forneceremos.
+        String sql = "SELECT * FROM Pagamentos WHERE ID_Membro = ?";
+        Connection conn = null;
+
+        try {
+            conn = Database.getConnection();
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                stmt.setInt(1, idMembro);
+
+                // executa a consulta e armazena os resultados no ResultSet
+                try (ResultSet rs = stmt.executeQuery()) {
+
+                    while (rs.next()) {
+                        Pagamento pagamento = new Pagamento();
+
+                        pagamento.setId(rs.getInt("ID"));
+                        pagamento.setIdMembro(rs.getInt("ID_Membro"));
+
+                        // Tratamento para a chave estrangeira nula ID_Funcionario_Registro
+                        Object funcObj = rs.getObject("ID_Funcionario_Registro");
+                        if (funcObj != null) {
+                            pagamento.setIdFuncionarioRegistro((Integer) funcObj);
+                        } else {
+                            pagamento.setIdFuncionarioRegistro(null);
+                        }
+
+                        pagamento.setValor(rs.getBigDecimal("Valor"));
+
+                        Date dataPagamentoSql = rs.getDate("Data_Pagamento");
+                        if (dataPagamentoSql != null) {
+                            pagamento.setDataPagamento(dataPagamentoSql.toLocalDate());
+                        }
+
+                        pagamento.setStatus(rs.getString("Status"));
+                        pagamento.setMetodoPagamento(rs.getString("Metodo_Pagamento"));
+
+                        Date dataVencimentoSql = rs.getDate("Data_Vencimento");
+                        if (dataVencimentoSql != null) {
+                            pagamento.setDataVencimento(dataVencimentoSql.toLocalDate());
+                        }
+
+                        // adiciona o objeto pagamento preenchido à lista
+                        pagamentos.add(pagamento);
+                    }
+                }
+            }
+            System.out.println("PagamentoController: Encontrados " + pagamentos.size() + " pagamentos para o membro ID: " + idMembro);
+
+        } catch (SQLException e) {
+            System.err.println("PagamentoController - ERRO ao listar pagamentos por membro (" + idMembro + "): " + e.getMessage());
+            e.printStackTrace();
+        }
+        //
+        return pagamentos;
+    }
+    }
