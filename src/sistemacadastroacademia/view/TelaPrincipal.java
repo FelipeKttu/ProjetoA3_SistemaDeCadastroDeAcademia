@@ -49,7 +49,7 @@ public class TelaPrincipal extends JFrame {
 
         this.setJMenuBar(menuBar);
 
-        //--- Eventos (Ações) dos Itens de Menu ---
+        //--- Eventos
         menuItemMembros.addActionListener(e -> new TelaCadastroMembro().setVisible(true));
         menuItemTreinos.addActionListener(e -> new TelaGerenciamentoTreinos().setVisible(true));
         menuItemPagamentos.addActionListener(e -> new TelaRegistroPagamentos().setVisible(true));
@@ -65,9 +65,7 @@ public class TelaPrincipal extends JFrame {
         });
     }
 
-    /**
-     * Pede confirmação ao usuário, fecha a conexão com o banco e encerra a aplicação.
-     */
+    // Pede confirmação ao usuário, fecha a conexão com o banco e encerra a aplicação
     private void fecharAplicacao() {
         int resposta = JOptionPane.showConfirmDialog(
                 this,

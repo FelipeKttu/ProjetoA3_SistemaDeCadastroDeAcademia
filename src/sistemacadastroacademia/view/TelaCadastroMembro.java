@@ -15,13 +15,13 @@ import java.util.List;
 
 public class TelaCadastroMembro extends JFrame {
 
-    // --- Componentes Visuais ---
+    //  Componentes Visuais
     private JTextField txtId, txtNome, txtCpf, txtTelefone, txtEndereco, txtDataCadastro;
     private JButton btnNovo, btnSalvar, btnExcluir;
     private JTable tabelaMembros;
     private DefaultTableModel modeloTabela;
 
-    // --- Controller ---
+    //Controller
     private MembroController membroController;
 
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -39,7 +39,7 @@ public class TelaCadastroMembro extends JFrame {
         JPanel painelPrincipal = new JPanel(new BorderLayout(10, 10));
         painelPrincipal.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // --- Painel do Formulário (Norte) ---
+        // --- Painel do Formulário
         JPanel painelFormulario = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -72,7 +72,7 @@ public class TelaCadastroMembro extends JFrame {
         // Adiciona o formulário na parte superior do painel principal
         painelPrincipal.add(painelFormulario, BorderLayout.NORTH);
 
-        // --- Painel de Botões (Sul) ---
+        // --- Painel de Botões
         JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER));
         btnNovo = new JButton("Novo");
         btnSalvar = new JButton("Salvar");
@@ -84,7 +84,7 @@ public class TelaCadastroMembro extends JFrame {
         // Adiciona os botões na parte inferior do painel principal
         painelPrincipal.add(painelBotoes, BorderLayout.SOUTH);
 
-        // --- Tabela de Membros (Centro) ---
+        // tabela de membros
         String[] colunas = {"ID", "Nome", "CPF", "Telefone", "Endereço", "Data Cadastro"};
         modeloTabela = new DefaultTableModel(colunas, 0) {
             @Override
@@ -101,7 +101,7 @@ public class TelaCadastroMembro extends JFrame {
         // Adiciona o painel principal à janela
         this.add(painelPrincipal);
 
-        // --- LÓGICA DOS EVENTOS ---
+        // eventos
         btnNovo.addActionListener(e -> limparCampos());
         btnSalvar.addActionListener(e -> salvarMembro());
         btnExcluir.addActionListener(e -> excluirMembro());
