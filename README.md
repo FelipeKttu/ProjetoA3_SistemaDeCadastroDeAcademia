@@ -1,6 +1,6 @@
 # Sistema de Cadastro de Academia 
 
-Projeto desenvolvido como parte da Avaliação A3 das Unidade Curricular **Programação e Soluções Computacionais**.
+Projeto desenvolvido como parte da Avaliação A3 da Unidade Curricular **Programação e Soluções Computacionais**.
 
 ##  Descrição
 
