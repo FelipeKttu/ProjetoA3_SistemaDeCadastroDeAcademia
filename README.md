@@ -1,4 +1,4 @@
-# Sistema de Cadastro de Academia 🏋️‍♂️
+# Sistema de Cadastro de Academia 🏋
 
 Projeto desenvolvido como parte da Avaliação A3 das Unidade Curricular **Programação e Soluções Computacionais**.
 
@@ -22,7 +22,7 @@ Este sistema tem como objetivo realizar o gerenciamento completo de uma academia
 - [x] Desempenho (uso de conexões otimizadas)
 - [x] Usabilidade (tema visual unificado, mensagens e feedbacks claros)
 
-## 🖥️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 - Java 17+
 - Java Swing (UI)
