@@ -1,12 +1,12 @@
-# Sistema de Cadastro de Academia 🏋
+# Sistema de Cadastro de Academia 
 
 Projeto desenvolvido como parte da Avaliação A3 das Unidade Curricular **Programação e Soluções Computacionais**.
 
-## 📋 Descrição
+##  Descrição
 
 Este sistema tem como objetivo realizar o gerenciamento completo de uma academia, incluindo o cadastro de membros, controle de treinos, registro de pagamentos e histórico de atividades. Desenvolvido em **Java**, utilizando **Java Swing** para a interface gráfica e **MySQL** como banco de dados, o projeto segue o padrão de arquitetura **MVC** e adota boas práticas de segurança e usabilidade.
 
-## ✅ Requisitos Atendidos
+## Requisitos Atendidos
 
 ### Funcionais
 
@@ -32,7 +32,7 @@ Este sistema tem como objetivo realizar o gerenciamento completo de uma academia
 - VSCode como IDE
 - GitHub para versionamento
 
-## 🧱 Estrutura do Projeto
+##  Estrutura do Projeto
 
 ```bash
 src/
