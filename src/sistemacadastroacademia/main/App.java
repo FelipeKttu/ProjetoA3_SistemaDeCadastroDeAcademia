@@ -52,7 +52,7 @@ public class App {
             }
 
             // Define uma fonte padrão mais bonita para a aplicação.
-            setUIFont(new FontUIResource("Segoe UI", Font.PLAIN, 16)); // Use "Arial" se "Segoe UI" não estiver disponível
+            setUIFont(new FontUIResource("Segoe UI", Font.PLAIN, 20)); // Use "Arial" se "Segoe UI" não estiver disponível
 
             // Define cores globais para um tema mais limpo
             Color corDeFundo = new Color(238, 238, 240);
