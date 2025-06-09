@@ -9,20 +9,20 @@ USE SistemaCadastroAcademia;
 CREATE TABLE IF NOT EXISTS Membros (
                                        ID            INT AUTO_INCREMENT PRIMARY KEY,
                                        Nome          VARCHAR(255) NOT NULL,
-    CPF           VARCHAR(14)  NOT NULL UNIQUE,
-    Telefone      VARCHAR(20),
-    Endereco      VARCHAR(255),
-    Data_Cadastro DATE         NOT NULL
-    ) ENGINE = InnoDB;
+                                       CPF           VARCHAR(14)  NOT NULL UNIQUE,
+                                       Telefone      VARCHAR(20),
+                                       Endereco      VARCHAR(255),
+                                       Data_Cadastro DATE         NOT NULL
+) ENGINE = InnoDB;
 
 -- tabela de Funcionários
 CREATE TABLE IF NOT EXISTS Funcionarios (
                                             ID    INT AUTO_INCREMENT PRIMARY KEY,
                                             Nome  VARCHAR(255) NOT NULL,
-    Cargo VARCHAR(100) NOT NULL,
-    Login VARCHAR(50)  NOT NULL UNIQUE,
-    Senha VARCHAR(255) NOT NULL
-    ) ENGINE = InnoDB;
+                                            Cargo VARCHAR(100) NOT NULL,
+                                            Login VARCHAR(50)  NOT NULL UNIQUE,
+                                            Senha VARCHAR(255) NOT NULL
+) ENGINE = InnoDB;
 
 -- tabela de Treinos
 CREATE TABLE IF NOT EXISTS Treinos (
@@ -30,12 +30,12 @@ CREATE TABLE IF NOT EXISTS Treinos (
                                        ID_Membro                INT          NOT NULL,
                                        ID_Funcionario_Instrutor INT          NULL,
                                        Tipo                     VARCHAR(100) NOT NULL,
-    Descricao                TEXT,
-    Duracao_Minutos          INT,
-    Data_Inicio              DATE         NOT NULL,
-    CONSTRAINT fk_treino_membro FOREIGN KEY (ID_Membro) REFERENCES Membros (ID) ON DELETE CASCADE,
-    CONSTRAINT fk_treino_funcionario FOREIGN KEY (ID_Funcionario_Instrutor) REFERENCES Funcionarios (ID) ON DELETE SET NULL
-    ) ENGINE = InnoDB;
+                                       Descricao                TEXT,
+                                       Duracao_Minutos          INT,
+                                       Data_Inicio              DATE         NOT NULL,
+                                       CONSTRAINT fk_treino_membro FOREIGN KEY (ID_Membro) REFERENCES Membros (ID) ON DELETE CASCADE,
+                                       CONSTRAINT fk_treino_funcionario FOREIGN KEY (ID_Funcionario_Instrutor) REFERENCES Funcionarios (ID) ON DELETE SET NULL
+) ENGINE = InnoDB;
 
 -- tabela de Pagamentos
 CREATE TABLE IF NOT EXISTS Pagamentos (
@@ -43,13 +43,13 @@ CREATE TABLE IF NOT EXISTS Pagamentos (
                                           ID_Membro               INT            NOT NULL,
                                           ID_Funcionario_Registro INT            NULL,
                                           Valor                   DECIMAL(10, 2) NOT NULL,
-    Data_Pagamento          DATE           NOT NULL,
-    Status                  VARCHAR(50)    NOT NULL,
-    Metodo_Pagamento        VARCHAR(50)    NULL,
-    Data_Vencimento         DATE           NULL,
-    CONSTRAINT fk_pagamento_membro FOREIGN KEY (ID_Membro) REFERENCES Membros (ID) ON DELETE CASCADE,
-    CONSTRAINT fk_pagamento_funcionario FOREIGN KEY (ID_Funcionario_Registro) REFERENCES Funcionarios (ID) ON DELETE SET NULL
-    ) ENGINE = InnoDB;
+                                          Data_Pagamento          DATE           NOT NULL,
+                                          Status                  VARCHAR(50)    NOT NULL,
+                                          Metodo_Pagamento        VARCHAR(50)    NULL,
+                                          Data_Vencimento         DATE           NULL,
+                                          CONSTRAINT fk_pagamento_membro FOREIGN KEY (ID_Membro) REFERENCES Membros (ID) ON DELETE CASCADE,
+                                          CONSTRAINT fk_pagamento_funcionario FOREIGN KEY (ID_Funcionario_Registro) REFERENCES Funcionarios (ID) ON DELETE SET NULL
+) ENGINE = InnoDB;
 
 -- tabela de Histórico de Atividades
 CREATE TABLE IF NOT EXISTS Historico_Atividades (
@@ -57,12 +57,12 @@ CREATE TABLE IF NOT EXISTS Historico_Atividades (
                                                     ID_Membro                  INT          NOT NULL,
                                                     ID_Funcionario_Responsavel INT          NULL,
                                                     Atividade                  VARCHAR(255) NOT NULL,
-    Data_Hora_Atividade        DATETIME     NOT NULL,
-    Tempo_Execucao_Minutos     INT          NULL,
-    Observacoes                TEXT         NULL,
-    CONSTRAINT fk_historico_membro FOREIGN KEY (ID_Membro) REFERENCES Membros (ID) ON DELETE CASCADE,
-    CONSTRAINT fk_historico_funcionario FOREIGN KEY (ID_Funcionario_Responsavel) REFERENCES Funcionarios (ID) ON DELETE SET NULL
-    ) ENGINE = InnoDB;
+                                                    Data_Hora_Atividade        DATETIME     NOT NULL,
+                                                    Tempo_Execucao_Minutos     INT          NULL,
+                                                    Observacoes                TEXT         NULL,
+                                                    CONSTRAINT fk_historico_membro FOREIGN KEY (ID_Membro) REFERENCES Membros (ID) ON DELETE CASCADE,
+                                                    CONSTRAINT fk_historico_funcionario FOREIGN KEY (ID_Funcionario_Responsavel) REFERENCES Funcionarios (ID) ON DELETE SET NULL
+) ENGINE = InnoDB;
 
 
 -- limpeza dos dados antigos para reexecutar
@@ -74,6 +74,19 @@ TRUNCATE TABLE Membros;
 TRUNCATE TABLE Funcionarios;
 SET FOREIGN_KEY_CHECKS = 1;
 
+
+-- Inserir Funcionários
+INSERT INTO Funcionarios (ID, Nome, Cargo, Login, Senha) VALUES
+
+                                                             (2, 'Peter Parker', 'Recepcionista', 'peter.p', 'senha123'),
+                                                             (3, 'Clark Kent', 'Recepcionista', 'clark.k', 'senha456'),
+                                                             (4, 'Tony Stark', 'Instrutor', 'tony.s', 'senha789'),
+                                                             (5, 'Bruce Wayne', 'Instrutor', 'bruce.w', 'senhaabc'),
+                                                             (6, 'Diana Prince', 'Instrutora', 'diana.p', 'senhadef'),
+                                                             (7, 'Steve Rogers', 'Instrutor', 'steve.r', 'senhaghi'),
+                                                             (8, 'Natasha Romanoff', 'Instrutora', 'natasha.r', 'senhajkl'),
+                                                             (9, 'Arthur Curry', 'Instrutor', 'arthur.c', 'senhamno'),
+                                                             (10, 'Luke Skywalker', 'Instrutor', 'luke.s', 'senhapqr');
 
 -- Inserir 40 Membros com CPFs Aleatórios
 INSERT INTO Membros (Nome, CPF, Telefone, Endereco, Data_Cadastro) VALUES
